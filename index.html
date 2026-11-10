@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>HARDENED — Executive Exposure Assessment</title>
+<meta name="description" content="Our talented professionals test whether your executives can keep company secrets.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="HARDENED">
+<meta property="og:url" content="https://hardenedpenetration.com/">
+<meta property="og:title" content="HARDENED — Your stack is hardened. Your executives aren’t.">
+<meta property="og:description" content="Our talented professionals test whether your executives can keep company secrets.">
+<meta property="og:image" content="https://hardenedpenetration.com/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="HARDENED — Your stack is hardened. Your executives aren’t.">
+<meta name="twitter:description" content="Our talented professionals test whether your executives can keep company secrets.">
+<meta name="twitter:image" content="https://hardenedpenetration.com/og-card.jpg">
+<meta name="theme-color" content="#1C1F23">
+<meta name="color-scheme" content="dark">
+<link rel="icon" href="favicon.png" type="image/png" sizes="64x64">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap&text=HARDENEDhardened" rel="stylesheet">
+<style>
+  /* Design system
+     Type    one sans (the device's own) for all reading and titles; one
+             monospace for labels and figures; Archivo for the wordmark only.
+     Scale   12 label, 14 small, 16 body, 18 lead, 26 title, plus the fitted
+             hero headline and the risk score.
+     Weight  400 text, 500 quotes and controls, 600 emphasis, 800 titles.
+     Boxes   cards hold things you can act on (packages, hiring);
+             information (calculator, quotes, FAQ) sits open on ruled lines. */
+  :root {
+    color-scheme: dark;
+
+    --bg: #1C1F23;
+    --surface: #262A2F;
+    --text: #F4F5F7;
+    --muted: #B9BFC7;
+    --dim: #959CA5;
+    --line: rgba(222, 230, 240, 0.14);
+    --line-strong: rgba(222, 230, 240, 0.34);
+    --red: #FF4655;
+    --red-wash: rgba(255, 70, 85, 0.13);
+    --red-line: rgba(255, 70, 85, 0.45);
+
+    --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    --font-brand: "Archivo", "Helvetica Neue", Arial, sans-serif;
+
+    --t-label: 12px;
+    --t-small: 14px;
+    --t-body: 16px;
+    --t-lead: 18px;
+    --t-title: 26px;
+    --t-score: 48px;
+
+    --section-gap: 48px;
+    --card-pad: 16px;
+    --radius: 16px;
+    --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html {
+    background: var(--bg);
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    font-size: var(--t-body);
+    font-weight: 400;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection { background: var(--text); color: var(--bg); }
+
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+  a, button, label, summary { -webkit-tap-highlight-color: transparent; }
+
+  :focus-visible {
+    outline: 2px solid var(--text);
+    outline-offset: 3px;
+  }
+
+  /* The side gutter also clears a phone's notch or side system bar. */
+  .wrap {
+    width: 100%;
+    max-width: 1160px;
+    margin-inline: auto;
+    padding-left: max(20px, env(safe-area-inset-left, 0px));
+    padding-right: max(20px, env(safe-area-inset-right, 0px));
+  }
+
+  /* Keeps a sentence together where it fits, without forcing overflow. */
+  .keep { display: inline-block; }
+
+  /* Wording that differs between the phone and desktop layouts. */
+  .only-desktop { display: none; }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* Every small label on the page shares this one style. */
+  .label {
+    margin: 0;
+    color: var(--dim);
+    font-family: var(--font-mono);
+    font-size: var(--t-label);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    line-height: 1.3;
+    text-transform: uppercase;
+  }
+
+  .card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  /* Header */
+
+  .site-header {
+    padding-top: env(safe-area-inset-top);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .site-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 56px;
+  }
+
+  .logo {
+    flex: none;
+    width: 22px;
+    height: 22px;
+  }
+
+  .logo-core { fill: var(--red); }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    font-family: var(--font-brand);
+    font-size: var(--t-small);
+    font-weight: 760;
+    font-stretch: 125%;
+    letter-spacing: 0.075em;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .site-nav { display: none; }
+
+  /* Buttons */
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 0 24px;
+    border: 1px solid var(--text);
+    border-radius: 999px;
+    background: var(--text);
+    color: var(--bg);
+    font-size: var(--t-body);
+    font-weight: 600;
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+  }
+
+  .btn-outline {
+    border-color: var(--line-strong);
+    background: transparent;
+    color: var(--text);
+  }
+
+  /* The hero button carries the brand red in a small round badge. */
+  .btn-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: none;
+    width: 30px;
+    height: 30px;
+    margin: 0 -15px 0 12px;
+    border-radius: 50%;
+    background: var(--red);
+    color: #FFFFFF;
+  }
+
+  .btn-badge svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Hero */
+
+  .hero { position: relative; }
+
+  /* Photograph: a band above the headline on phones, the right side of the
+     hero on wide screens. It dissolves into the page on the edges it meets. */
+  .hero-media {
+    height: clamp(200px, 60vw, 340px);
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, #000 52%, transparent);
+    mask-image: linear-gradient(to bottom, #000 52%, transparent);
+  }
+
+  .hero-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 100% 50%;
+  }
+
+  .hero-body {
+    position: relative;
+    margin-top: -32px;
+  }
+
+  /* On phones each sentence holds one line; a script then sizes the type so
+     the longer sentence spans the full width. */
+  .hero-title {
+    margin: 0;
+    font-size: 7.2vw;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.12;
+  }
+
+  .hero-line {
+    display: block;
+    white-space: nowrap;
+  }
+
+  .hero-line-red { color: var(--red); }
+
+  .hero-lede {
+    max-width: 30em;
+    margin: 16px 0 0;
+    color: var(--muted);
+    font-size: var(--t-lead);
+    line-height: 1.45;
+    text-wrap: balance;
+  }
+
+  .hero-cta { margin-top: 24px; }
+
+  /* Sections: one rhythm everywhere. A rule, the title, then the content. */
+
+  .section { margin-top: var(--section-gap); }
+
+  .section-title {
+    margin: 0 0 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line-strong);
+    font-size: var(--t-title);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .section-title-plain {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  /* Calculator: open on the page, no box */
+
+  .field {
+    min-width: 0;
+    margin: 0 0 16px;
+    padding: 0;
+    border: 0;
+  }
+
+  .field .label {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    padding: 0;
+  }
+
+  .seg {
+    --i: 0;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding: 3px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    background: var(--surface);
+  }
+
+  .seg-thumb {
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    left: 3px;
+    width: calc((100% - 6px) / 3);
+    border-radius: 999px;
+    background: var(--text);
+    transform: translateX(calc(var(--i) * 100%));
+    transition: transform 260ms var(--ease);
+  }
+
+  .seg-option {
+    position: relative;
+    display: block;
+    min-width: 0;
+  }
+
+  .seg-input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .seg-text {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 4px;
+    border-radius: 999px;
+    color: var(--muted);
+    font-size: var(--t-body);
+    font-weight: 500;
+    line-height: 1.1;
+    text-align: center;
+    transition: color 200ms ease;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  .seg-input:checked + .seg-text { color: var(--bg); font-weight: 600; }
+  .seg-input:disabled { cursor: not-allowed; }
+  .seg-input:disabled + .seg-text { color: rgba(255, 255, 255, 0.2); }
+  .seg-input:focus-visible + .seg-text {
+    outline: 2px solid var(--text);
+    outline-offset: 4px;
+  }
+
+  .readout {
+    margin-top: 8px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .readout-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .readout-level {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 5px 11px 5px 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    color: var(--text);
+    transition: color 200ms ease, border-color 200ms ease, background-color 200ms ease;
+  }
+
+  .readout-level::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+
+  .readout-score {
+    margin: 16px 0 0;
+    font-family: var(--font-mono);
+    font-size: var(--t-score);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.045em;
+    line-height: 1;
+    transition: color 200ms ease;
+  }
+
+  .readout-pct {
+    margin-left: 0.12em;
+    font-size: 0.5em;
+  }
+
+  .meter {
+    position: relative;
+    height: 6px;
+    margin-top: 20px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .meter-fill {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: var(--p, 0%);
+    background: var(--text);
+    transition: width 440ms var(--ease), background-color 200ms ease;
+  }
+
+  /* Severity boundaries at 25 / 50 / 75. */
+  .meter-tick {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    margin-left: -1px;
+    background: var(--bg);
+  }
+
+  .readout[data-level="critical"] .readout-score { color: var(--red); }
+  .readout[data-level="critical"] .meter-fill { background: var(--red); }
+  .readout[data-level="critical"] .readout-level {
+    border-color: var(--red-line);
+    background: var(--red-wash);
+    color: var(--red);
+  }
+
+  .facts { margin: 20px 0 0; }
+
+  .fact {
+    padding: 12px 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .fact:last-child { padding-bottom: 0; }
+
+  .fact-value {
+    margin: 4px 0 0;
+    font-family: var(--font-mono);
+    font-size: var(--t-lead);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  .is-swapping { animation: swap 240ms var(--ease); }
+
+  @keyframes swap {
+    from { opacity: 0.2; transform: translateY(3px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  /* Pricing: cards */
+
+  .tiers {
+    display: grid;
+    gap: 16px;
+  }
+
+  .tier {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: var(--card-pad);
+  }
+
+  /* The most popular package: red border, label sitting on the top edge. */
+  .tier-popular { border-color: var(--red); }
+
+  .tier-flag {
+    position: absolute;
+    top: -11px;
+    left: calc(var(--card-pad) - 1px);
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: var(--red);
+    color: var(--bg);
+    font-weight: 600;
+  }
+
+  /* Package name top left, price top right, at the same size. */
+  .tier-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .tier-name,
+  .tier-price {
+    margin: 0;
+    font-size: var(--t-lead);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  .tier-name {
+    min-width: 0;
+    color: var(--red);
+  }
+
+  .tier-price {
+    flex: none;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .tier-desc {
+    margin: 6px 0 0;
+    color: var(--muted);
+  }
+
+  .tier-list {
+    display: grid;
+    gap: 10px;
+    margin: 16px 0 0;
+    padding: 16px 0 0;
+    border-top: 1px solid var(--line);
+    line-height: 1.35;
+    list-style: none;
+  }
+
+  .tier-item {
+    position: relative;
+    padding-left: 26px;
+  }
+
+  .tier-item::before {
+    content: "";
+    position: absolute;
+    top: 0.14em;
+    left: 4px;
+    width: 7px;
+    height: 12px;
+    border: solid var(--text);
+    border-width: 0 2px 2px 0;
+    transform: rotate(42deg);
+  }
+
+  .tier-cta {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  /* Testimonials: plain quotes */
+
+  .quotes {
+    display: grid;
+    gap: 24px;
+  }
+
+  .quote { margin: 0; }
+  .quote blockquote { margin: 0; }
+
+  .quote-text {
+    margin: 0;
+    font-size: var(--t-lead);
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    line-height: 1.4;
+    text-wrap: pretty;
+  }
+
+  .quote-by {
+    margin-top: 6px;
+    color: var(--muted);
+    font-size: var(--t-small);
+    line-height: 1.4;
+  }
+
+  /* Careers: one card. A muted crop of the photograph runs along the top on
+     phones and down the right side on wide screens. */
+
+  .hiring {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hiring-media {
+    height: 148px;
+    opacity: 0.5;
+    -webkit-mask-image: linear-gradient(to bottom, #000 35%, transparent);
+    mask-image: linear-gradient(to bottom, #000 35%, transparent);
+  }
+
+  .hiring-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 82% 40%;
+  }
+
+  .hiring-title {
+    position: absolute;
+    z-index: 1;
+    top: var(--card-pad);
+    left: var(--card-pad);
+    margin: 0;
+    font-size: var(--t-title);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .hiring-body {
+    position: relative;
+    margin-top: -20px;
+    padding: 0 var(--card-pad);
+  }
+
+  .hiring-text {
+    margin: 0;
+    color: var(--muted);
+    text-wrap: balance;
+  }
+
+  .hiring-contact {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 16px 0 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .hiring-email {
+    padding: 14px 0;
+    font-family: var(--font-mono);
+    font-size: var(--t-small);
+    font-weight: 500;
+    line-height: 1.3;
+    text-decoration: underline;
+    text-decoration-color: var(--line-strong);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    transition: text-decoration-color 160ms ease;
+  }
+
+  /* FAQ: ruled rows of equal height, no boxes */
+
+  .faq-list { border-top: 1px solid var(--line-strong); }
+
+  .faq-item { border-bottom: 1px solid var(--line); }
+
+  .faq-q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    min-height: 64px;
+    padding: 10px 0;
+    font-weight: 600;
+    line-height: 1.32;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq-q::-webkit-details-marker { display: none; }
+
+  .faq-chevron {
+    flex: none;
+    width: 9px;
+    height: 9px;
+    margin: -4px 5px 0 0;
+    border: solid var(--muted);
+    border-width: 0 1.5px 1.5px 0;
+    transform: rotate(45deg);
+    transition: transform 200ms var(--ease), margin 200ms var(--ease);
+  }
+
+  .faq-item[open] .faq-chevron {
+    margin-top: 5px;
+    transform: rotate(225deg);
+  }
+
+  .faq-a {
+    max-width: 40em;
+    margin: 0;
+    padding: 0 28px 18px 0;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  /* Footer */
+
+  .site-footer {
+    margin-top: 56px;
+    padding: 20px 0 26px;
+    padding-bottom: max(26px, env(safe-area-inset-bottom));
+    border-top: 1px solid var(--line);
+  }
+
+  .site-footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .site-footer .wordmark { gap: 8px; font-size: var(--t-label); }
+  .site-footer .logo { width: 18px; height: 18px; }
+
+  .disclaimer {
+    margin: 0;
+    color: var(--dim);
+    font-size: var(--t-small);
+    line-height: 1.3;
+  }
+
+  /* Confirmation dialog */
+
+  .notice {
+    width: min(100% - 40px, 400px);
+    padding: 24px;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: #2C3137;
+    color: var(--text);
+  }
+
+  .notice::backdrop { background: rgba(14, 16, 19, 0.62); }
+
+  .notice-title {
+    margin: 0;
+    font-size: var(--t-lead);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+  }
+
+  .notice-body {
+    margin: 8px 0 0;
+    color: var(--muted);
+  }
+
+  .notice-close {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  /* Hover only where a pointer can hover */
+
+  @media (hover: hover) {
+    .btn:hover { background: #FFFFFF; border-color: #FFFFFF; color: var(--bg); }
+    .btn-outline:hover { background: rgba(255, 255, 255, 0.06); border-color: rgba(255, 255, 255, 0.5); color: var(--text); }
+    .seg-input:not(:checked):not(:disabled):hover + .seg-text { color: var(--text); }
+    .site-nav a:hover { color: var(--text); }
+    .faq-q:hover .faq-chevron { border-color: var(--text); }
+    .hiring-email:hover { text-decoration-color: var(--text); }
+  }
+
+  /* Larger phones and small tablets */
+
+  @media (min-width: 600px) {
+    :root {
+      --section-gap: 64px;
+      --card-pad: 24px;
+    }
+
+    .hero-title { font-size: clamp(42px, 5.4vw, 64px); line-height: 1.04; }
+    .hero-lede { margin-top: 20px; }
+    .hero-cta { margin-top: 28px; }
+    .tier-cta { width: auto; align-self: flex-start; min-width: 200px; }
+  }
+
+  @media (min-width: 760px) {
+    .site-header-inner { min-height: 64px; }
+
+    .site-nav {
+      display: flex;
+      gap: 28px;
+      font-size: var(--t-small);
+      font-weight: 500;
+    }
+
+    .site-nav a {
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 160ms ease;
+    }
+
+    .quotes { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 48px; }
+
+    .hiring {
+      display: grid;
+      grid-template-columns: minmax(0, 6fr) minmax(0, 5fr);
+      align-items: stretch;
+    }
+
+    .hiring-media {
+      order: 2;
+      height: auto;
+      min-height: 210px;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 60%);
+      mask-image: linear-gradient(to right, transparent, #000 60%);
+    }
+
+    .hiring-body {
+      align-self: end;
+      margin-top: 0;
+      padding: 84px 0 4px var(--card-pad);
+    }
+  }
+
+  /* Desktop */
+
+  @media (min-width: 940px) {
+    :root {
+      --t-title: 34px;
+      --t-score: 64px;
+      --section-gap: 80px;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      min-height: 500px;
+      padding: 72px 0 60px;
+      overflow: hidden;
+    }
+
+    .hero-media {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 66%;
+      height: auto;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 44%), linear-gradient(to bottom, #000 72%, transparent);
+      -webkit-mask-composite: source-in;
+      mask-image: linear-gradient(to right, transparent, #000 44%), linear-gradient(to bottom, #000 72%, transparent);
+      mask-composite: intersect;
+    }
+
+    .hero-body { margin-top: 0; }
+
+    .hero + .section { margin-top: 24px; }
+
+    .section-title {
+      margin-bottom: 28px;
+      padding-top: 24px;
+    }
+
+    .section-title-plain { padding-top: 0; }
+
+    .calc {
+      display: grid;
+      grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+      gap: 72px;
+      align-items: start;
+    }
+
+    .field { margin-bottom: 20px; }
+
+    .readout {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .fact {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .fact-value { margin: 0; }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+      gap: 56px;
+      align-items: start;
+    }
+
+    .site-footer { margin-top: 88px; padding: 26px 0 34px; }
+
+    /* Desktop-only presentation */
+    .only-mobile { display: none; }
+    .only-desktop { display: inline; }
+
+    .tier-flag {
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
+    .hiring-contact { justify-content: flex-start; }
+  }
+
+  /* Three packages side by side once each column can hold name and price. */
+  @media (min-width: 1140px) {
+    .tiers { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .tier-list { margin-bottom: 24px; }
+    .tier-cta { width: 100%; margin-top: auto; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .seg-thumb,
+    .meter-fill,
+    .faq-chevron { transition: none; }
+    .is-swapping { animation: none; }
+  }
+</style>
+</head>
+<body>
+  <header class="site-header" id="top">
+    <div class="wrap site-header-inner">
+      <a class="wordmark" href="#top">
+        <svg class="logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.2 20.49 7.1v9.8L12 21.8 3.51 16.9V7.1Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path class="logo-core" d="M12 7.6 15.81 9.8v4.4L12 16.4 8.19 14.2V9.8Z"/></svg>
+        Hardened
+      </a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="#calculator">Calculator</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#careers">Careers</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-media">
+        <img class="hero-img" src="lips.jpg" alt="" width="1916" height="821" fetchpriority="high">
+      </div>
+      <div class="wrap hero-body">
+        <h1 class="hero-title">
+          <span class="hero-line">Your stack is hardened.</span>
+          <span class="hero-line hero-line-red">Your executives aren’t.</span>
+        </h1>
+        <p class="hero-lede">Our talented professionals test whether your executives can keep company secrets.</p>
+        <a class="btn hero-cta" href="#pricing">Test Your Executive<span class="btn-badge" aria-hidden="true"><svg viewBox="0 0 16 16" focusable="false"><path d="M8 3v9.5M3.75 8.25 8 12.5l4.25-4.25" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>
+      </div>
+    </section>
+
+    <section class="section" id="calculator" aria-labelledby="calculator-title">
+      <div class="wrap">
+        <h2 class="section-title" id="calculator-title">Honeypot risk calculator</h2>
+
+        <div class="calc">
+          <form id="assessment" autocomplete="off">
+            <fieldset class="field">
+              <legend class="label">Role</legend>
+              <div class="seg">
+                <span class="seg-thumb" aria-hidden="true"></span>
+                <label class="seg-option">
+                  <input class="seg-input" type="radio" name="role" value="engineer">
+                  <span class="seg-text">Engineer</span>
+                </label>
+                <label class="seg-option">
+                  <input class="seg-input" type="radio" name="role" value="manager">
+                  <span class="seg-text">Manager</span>
+                </label>
+                <label class="seg-option">
+                  <input class="seg-input" type="radio" name="role" value="executive" checked>
+                  <span class="seg-text">Executive</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="field">
+              <legend class="label">Venue</legend>
+              <div class="seg">
+                <span class="seg-thumb" aria-hidden="true"></span>
+                <label class="seg-option">
+                  <input class="seg-input" type="radio" name="venue" value="office">
+                  <span class="seg-text">Office</span>
+                </label>
+                <label class="seg-option">
+                  <input class="seg-input" type="radio" name="venue" value="conference">
+                  <span class="seg-text">Conference</span>
+                </label>
+                <label class="seg-option">
+                  <input class="seg-input" type="radio" name="venue" value="hotel" checked>
+                  <span class="seg-text">Hotel Bar</span>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset class="field">
+              <legend class="label">Intimate encounters over past 12 months</legend>
+              <div class="seg">
+                <span class="seg-thumb" aria-hidden="true"></span>
+                <label class="seg-option">
+                  <input class="seg-input" type="radio" name="encounters" value="quiet" checked>
+                  <span class="seg-text">Quiet</span>
+                </label>
+                <label class="seg-option">
+                  <input class="seg-input" type="radio" name="encounters" value="steady">
+                  <span class="seg-text">Steady</span>
+                </label>
+                <label class="seg-option">
+                  <input class="seg-input" type="radio" name="encounters" value="active">
+                  <span class="seg-text">Active</span>
+                </label>
+              </div>
+            </fieldset>
+          </form>
+
+          <div class="readout" id="readout" data-level="critical">
+            <div class="readout-head">
+              <span class="label">Honey-prone</span>
+              <span class="label readout-level" id="level">Critical</span>
+            </div>
+            <p class="readout-score"><span id="score">77.4</span><span class="readout-pct">%</span></p>
+            <div class="meter" aria-hidden="true">
+              <span class="meter-fill" id="meter" style="--p: 77.4%"></span>
+              <span class="meter-tick" style="left: 25%"></span>
+              <span class="meter-tick" style="left: 50%"></span>
+              <span class="meter-tick" style="left: 75%"></span>
+            </div>
+            <dl class="facts">
+              <div class="fact">
+                <dt class="label">Estimated time to leak</dt>
+                <dd class="fact-value" id="leak">23 minutes</dd>
+              </div>
+              <div class="fact">
+                <dt class="label">Recommended package</dt>
+                <dd class="fact-value" id="package">First Base</dd>
+              </div>
+            </dl>
+            <p class="sr-only" id="summary" role="status" aria-live="polite"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="pricing" aria-labelledby="pricing-title">
+      <div class="wrap">
+        <h2 class="section-title" id="pricing-title">Pricing</h2>
+        <div class="tiers">
+          <article class="card tier">
+            <div class="tier-head">
+              <h3 class="tier-name">First Base</h3>
+              <p class="tier-price">$1,000</p>
+            </div>
+            <p class="tier-desc">Flirtation-based social engineering</p>
+            <ul class="tier-list">
+              <li class="tier-item">Laughing at jokes</li>
+              <li class="tier-item">Arm-touching</li>
+              <li class="tier-item">Eye contact</li>
+              <li class="tier-item"><span class="only-mobile">Asking to explain</span><span class="only-desktop">Asking for explanations</span></li>
+            </ul>
+            <button class="btn btn-outline tier-cta" type="button" data-notice>Purchase Package</button>
+          </article>
+
+          <article class="card tier tier-popular">
+            <p class="label tier-flag">Most popular</p>
+            <div class="tier-head">
+              <h3 class="tier-name">Deep Penetration</h3>
+              <p class="tier-price">$25,000</p>
+            </div>
+            <p class="tier-desc">Advanced intimacy-based attacks</p>
+            <ul class="tier-list">
+              <li class="tier-item">Everything in First Base</li>
+              <li class="tier-item">Escalation-authorized professionals</li>
+              <li class="tier-item">Full transcripts &amp; post-test analysis</li>
+            </ul>
+            <button class="btn tier-cta" type="button" data-notice>Purchase Package</button>
+          </article>
+
+          <article class="card tier">
+            <div class="tier-head">
+              <h3 class="tier-name">Girlfriend Experience</h3>
+              <p class="tier-price"><span class="only-mobile">Request Quote</span><span class="only-desktop">P.O.A.</span></p>
+            </div>
+            <p class="tier-desc">Persistent penetration testing</p>
+            <ul class="tier-list">
+              <li class="tier-item">Everything in Deep Penetration</li>
+              <li class="tier-item">Weeks of daily testing</li>
+              <li class="tier-item">Dedicated liaison</li>
+            </ul>
+            <button class="btn btn-outline tier-cta" type="button" data-notice>Talk to Sales</button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="testimonials" aria-labelledby="testimonials-title">
+      <div class="wrap">
+        <h2 class="section-title" id="testimonials-title">Testimonials</h2>
+        <div class="quotes">
+          <figure class="quote">
+            <blockquote>
+              <p class="quote-text"><span class="keep">“I failed every test.</span> <span class="keep">Best quarter of my life.”</span></p>
+            </blockquote>
+            <figcaption class="quote-by">CTO, Series B AI lab</figcaption>
+          </figure>
+          <figure class="quote">
+            <blockquote>
+              <p class="quote-text">“I don’t even have a software company, and I still use this service.”</p>
+            </blockquote>
+            <figcaption class="quote-by">Repeat customer, independent operator</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="careers" aria-labelledby="careers-title">
+      <div class="wrap">
+        <div class="card hiring">
+          <div class="hiring-media">
+            <img class="hiring-img" src="champagne.jpg" alt="" width="1916" height="821">
+          </div>
+          <h2 class="hiring-title" id="careers-title">We’re hiring</h2>
+          <div class="hiring-body">
+            <p class="hiring-text">Seeking 6s through 9s of diverse backgrounds. All Asians welcome.</p>
+            <p class="hiring-contact"><span class="label">Email</span><a class="hiring-email" href="mailto:hr@hardenedpenetration.com">hr@hardenedpenetration.com</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq" aria-labelledby="faq-title">
+      <div class="wrap faq-grid">
+        <h2 class="section-title section-title-plain" id="faq-title">FAQ</h2>
+        <div class="faq-list">
+          <details class="faq-item">
+            <summary class="faq-q"><span>Do employees know they’re <span class="keep">being tested?</span></span><span class="faq-chevron" aria-hidden="true"></span></summary>
+            <p class="faq-a">No. Covert engagements are the point. Only your designated Penetrative Investigation Mapping Provider and their operatives will know an exercise is live.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q"><span>How far does Deep Penetration go?</span><span class="faq-chevron" aria-hidden="true"></span></summary>
+            <p class="faq-a">As far as it needs to. That said, we score targets only on their discretion under intimacy-adjacent trust. No blackmail or other non-intimacy tactics are used.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q"><span><span class="keep">I passed the Deep Penetration test.</span> <span class="keep">When can I get tested again?</span></span><span class="faq-chevron" aria-hidden="true"></span></summary>
+            <p class="faq-a">Due to high demand, we are currently restricting tests to one per quarter. Alternatively, please contact sales about the Girlfriend Experience.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q"><span>How do you select your operatives?</span><span class="faq-chevron" aria-hidden="true"></span></summary>
+            <p class="faq-a">Our operatives are hand selected across various physical and psychological attributes. All are experienced professionals with sufficient domain expertise to engage targets across the entire autism spectrum.</p>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-q"><span>Can you honeypot my competitors?</span><span class="faq-chevron" aria-hidden="true"></span></summary>
+            <p class="faq-a">No. We are committed to ethical use of this dual-use social technology, and only provide defensive use.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap site-footer-inner">
+      <span class="wordmark">
+        <svg class="logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.2 20.49 7.1v9.8L12 21.8 3.51 16.9V7.1Z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path class="logo-core" d="M12 7.6 15.81 9.8v4.4L12 16.4 8.19 14.2V9.8Z"/></svg>
+        Hardened
+      </span>
+      <p class="disclaimer">A work of satire.</p>
+    </div>
+  </footer>
+
+  <dialog class="notice" id="notice" aria-labelledby="notice-title">
+    <h2 class="notice-title" id="notice-title">Request received.</h2>
+    <p class="notice-body">A specialist Penetrative Investigation Mapping Provider will contact you with next steps.</p>
+    <form method="dialog">
+      <button class="btn notice-close" type="submit">Close</button>
+    </form>
+  </dialog>
+
+<script>
+(function () {
+  "use strict";
+
+  // Fictional, deterministic scoring. Each input is ranked 0–2 by how much it
+  // raises exposure: managers above engineers above executives, hotel bars
+  // above conferences above offices, a quiet year above a steady or active one.
+  var ROLE = { executive: 0, engineer: 1, manager: 2 };
+  var VENUE = { office: 0, conference: 1, hotel: 2 };
+  var ENCOUNTERS = { active: 0, steady: 1, quiet: 2 };
+
+  var MINUTE = 1;
+  var HOUR = 60;
+  var DAY = 24 * HOUR;
+  var WEEK = 7 * DAY;
+  var MONTH = 30 * DAY;
+
+  var FASTEST_LEAK = 5 * MINUTE;
+  var SLOWEST_LEAK = 3 * MONTH;
+
+  // Rounds a raw estimate to the figure that is shown, and returns that shown
+  // figure in minutes as well, so everything downstream agrees with the screen.
+  function leakEstimate(rawMinutes) {
+    function shown(count, unit, name) {
+      return { text: count + " " + name + (count === 1 ? "" : "s"), minutes: count * unit };
+    }
+    if (Math.round(rawMinutes) < 60) return shown(Math.round(rawMinutes), MINUTE, "minute");
+    if (Math.round(rawMinutes / HOUR) < 24) return shown(Math.round(rawMinutes / HOUR), HOUR, "hour");
+    if (Math.round(rawMinutes / DAY) < 14) return shown(Math.round(rawMinutes / DAY), DAY, "day");
+    if (rawMinutes / DAY < 60) return shown(Math.round(rawMinutes / WEEK), WEEK, "week");
+    return shown(Math.round(rawMinutes / MONTH), MONTH, "month");
+  }
+
+  // The package depends only on the time to leak as displayed:
+  // under 2 hours, 2 hours to 2 days, or longer.
+  function packageFor(leakMinutes) {
+    if (leakMinutes < 2 * HOUR) return "First Base";
+    if (leakMinutes <= 2 * DAY) return "Deep Penetration";
+    return "Girlfriend Experience";
+  }
+
+  function assess(role, venue, encounters) {
+    var r = ROLE[role];
+    var v = VENUE[venue];
+    var e = ENCOUNTERS[encounters];
+
+    var honey = 8.8 + 6.1 * r + 15.2 * v + 12.3 * e
+      + 1.1 * r * v + 0.9 * r * e + 3.4 * v * e + 0.15 * r * v * e;
+    honey = Math.round(honey * 10) / 10;
+
+    // Venue dominates how quickly it happens; the scale is logarithmic,
+    // running from five minutes to three months.
+    var speed = 0.55 * (v / 2) + 0.30 * (e / 2) + 0.15 * (r / 2);
+    var leak = leakEstimate(FASTEST_LEAK * Math.pow(SLOWEST_LEAK / FASTEST_LEAK, 1 - speed));
+
+    var level;
+    if (honey >= 75) level = "Critical";
+    else if (honey >= 50) level = "High";
+    else if (honey >= 25) level = "Moderate";
+    else level = "Low";
+
+    return {
+      honey: honey,
+      leak: leak.text,
+      level: level,
+      packageName: packageFor(leak.minutes)
+    };
+  }
+
+  var form = document.getElementById("assessment");
+  var readout = document.getElementById("readout");
+  var scoreEl = document.getElementById("score");
+  var levelEl = document.getElementById("level");
+  var meterEl = document.getElementById("meter");
+  var leakEl = document.getElementById("leak");
+  var packageEl = document.getElementById("package");
+  var summaryEl = document.getElementById("summary");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  var shownHoney = null;
+  var frame = null;
+
+  function checked(name) {
+    return form.querySelector('input[name="' + name + '"]:checked');
+  }
+
+  function input(name, value) {
+    return form.querySelector('input[name="' + name + '"][value="' + value + '"]');
+  }
+
+  // Engineers cannot select Active.
+  function applyRoleRules() {
+    var active = input("encounters", "active");
+    var isEngineer = checked("role").value === "engineer";
+    active.disabled = isEngineer;
+    if (isEngineer && active.checked) input("encounters", "steady").checked = true;
+  }
+
+  function moveThumbs() {
+    var groups = form.querySelectorAll(".seg");
+    for (var i = 0; i < groups.length; i++) {
+      var inputs = groups[i].querySelectorAll(".seg-input");
+      for (var j = 0; j < inputs.length; j++) {
+        if (inputs[j].checked) groups[i].style.setProperty("--i", j);
+      }
+    }
+  }
+
+  function setText(el, text, animate) {
+    if (el.textContent === text) return;
+    el.textContent = text;
+    if (!animate || reduceMotion.matches) return;
+    el.classList.remove("is-swapping");
+    void el.offsetWidth;
+    el.classList.add("is-swapping");
+  }
+
+  function countTo(target, animate) {
+    if (frame) cancelAnimationFrame(frame);
+    var from = shownHoney;
+    if (!animate || reduceMotion.matches || from === null || Math.abs(target - from) < 0.05) {
+      shownHoney = target;
+      scoreEl.textContent = target.toFixed(1);
+      return;
+    }
+    var start = performance.now();
+    var duration = 440;
+    function step(now) {
+      var t = Math.min(1, (now - start) / duration);
+      var eased = 1 - Math.pow(1 - t, 3);
+      shownHoney = from + (target - from) * eased;
+      scoreEl.textContent = shownHoney.toFixed(1);
+      if (t < 1) {
+        frame = requestAnimationFrame(step);
+      } else {
+        frame = null;
+        shownHoney = target;
+        scoreEl.textContent = target.toFixed(1);
+      }
+    }
+    frame = requestAnimationFrame(step);
+  }
+
+  function update(animate) {
+    applyRoleRules();
+    moveThumbs();
+
+    var result = assess(checked("role").value, checked("venue").value, checked("encounters").value);
+
+    readout.setAttribute("data-level", result.level.toLowerCase());
+    meterEl.style.setProperty("--p", result.honey + "%");
+    countTo(result.honey, animate);
+    setText(levelEl, result.level, animate);
+    setText(leakEl, result.leak, animate);
+    setText(packageEl, result.packageName, animate);
+
+    if (animate) {
+      summaryEl.textContent = "Honey-prone " + result.honey.toFixed(1) + " percent, " + result.level.toLowerCase()
+        + ". Estimated time to leak: " + result.leak
+        + ". Recommended package: " + result.packageName + ".";
+    }
+  }
+
+  form.addEventListener("change", function () { update(true); });
+  form.addEventListener("submit", function (event) { event.preventDefault(); });
+  update(false);
+
+  // On phones, size the headline so its longer sentence spans the full width.
+  var heroTitle = document.querySelector(".hero-title");
+  var heroLines = heroTitle.querySelectorAll(".hero-line");
+
+  function fitHero() {
+    heroTitle.style.fontSize = "";
+    if (window.innerWidth >= 600) return;
+    var widest = 0;
+    for (var i = 0; i < heroLines.length; i++) {
+      var range = document.createRange();
+      range.selectNodeContents(heroLines[i]);
+      widest = Math.max(widest, range.getBoundingClientRect().width);
+    }
+    if (!widest) return;
+    var size = parseFloat(getComputedStyle(heroTitle).fontSize);
+    heroTitle.style.fontSize = Math.floor(size * heroTitle.clientWidth / widest * 100) / 100 + "px";
+  }
+
+  fitHero();
+  window.addEventListener("resize", fitHero);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHero);
+
+  // Package buttons share one confirmation dialog.
+  var notice = document.getElementById("notice");
+
+  document.addEventListener("click", function (event) {
+    if (event.target.closest("[data-notice]")) {
+      if (typeof notice.showModal === "function") notice.showModal();
+      else notice.setAttribute("open", "");
+      return;
+    }
+    // A click on the backdrop lands on the dialog element itself.
+    if (event.target === notice && typeof notice.close === "function") notice.close();
+  });
+})();
+</script>
+<!-- Visitor counter (GoatCounter): invisible, no cookies. -->
+<script data-goatcounter="https://hardenedpenetration.goatcounter.com/count" async src="https://gc.zgo.at/count.js"></script>
+</body>
+</html>
